@@ -69,6 +69,7 @@ While "-monitor stdio" add the qemu monitor controller to stdio.
 	-monitor stdio
 
 The XML format of 4 targets, 1 lun with each target
+
 	    <disk type='file' device='disk'>
 	      <driver name='qemu' type='raw'/>
 	      <source file='/vm/virtio-scsi/scsi3.img'/>
