@@ -1,6 +1,6 @@
 ---
 layout: page
-title:
+title: Home Page - Wanlong Gao
 ---
 {% include JB/setup %}
 
