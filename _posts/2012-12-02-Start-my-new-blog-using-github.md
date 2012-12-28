@@ -8,4 +8,4 @@ tags: [personal]
 {% include JB/setup %}
 
 From now on, I'm going to post my blogs here using github.com.
-It's a easier way and more suitable for me.
+It's an easier way and more suitable for me.
