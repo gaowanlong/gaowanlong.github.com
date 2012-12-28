@@ -109,3 +109,140 @@ The above mentioned scsiX.img are all tmpfs backed images
 	dd if=/dev/zero of=/vm/virtio-scsi/scsi2.img bs=1M count=700
 	dd if=/dev/zero of=/vm/virtio-scsi/scsi3.img bs=1M count=700
 	dd if=/dev/zero of=/vm/virtio-scsi/scsi4.img bs=1M count=700
+
+### Hot-plug and Hot-unplug a virtio-scsi device ##
+
+	qemu> drive_add 0:11 file=/vm/virtio-scsi/scsi4.img,if=none,id=hotadd-scsi1,format=raw
+	qemu> device_add scsi-hd,bus=scsi0.0,scsi-id=4,lun=0,drive=hotadd-scsi1,id=hotadd-scsi1
+	qemu> device_del hotadd-scsi1
+
+### Virtio-scsi performance testing ##
+#### Use the upstream fio ##
+
+	git clone http://git.kernel.org/pub/scm/linux/kernel/git/axboe/fio.git
+
+#### fio configuration file ##
+
+	# cat virtio-scsi-4.fio 
+	[global]
+	bsrange=4k-64k
+	ioengine=libaio
+	direct=1
+	iodepth=4
+	loops=100
+	size=700M
+	write_bw_log=virtio-scsi_1.log
+	
+	[randrw]
+	rw=randrw
+	filename=/dev/sda:/dev/sdb:/dev/sdc:/dev/sdd
+
+#### We always use irqbalance to improve the performance of virtio-scsi ##
+
+	# git clone http://code.google.com/p/irqbalance
+
+#### We can also test the performance using idle=poll on host to avoid power management effect. ##
+
+The method is adding idle=poll parameter to host kernel.
+Quoted from M.S.T:
+>"Another thing to note is that ATM you might need to
+>test with idle=poll on host otherwise we have strange interaction
+>with power management where reducing the overhead
+>switches to lower power so gives you a worse IOPS."
+
+#### run fio with the fio configuration file ##
+
+	# fio virtio-scsi-4.fio --output=scsi-4.log
+
+### Use virtio-net in QEMU command line ##
+If we want to start QEMU by hand, we should set up the tap device by ourselves. The following simple program just set up the tap device and open the vhost-net device and start the QEMU. It's useful when debugging virtio devices in QEMU.
+
+	#include <stdio.h>
+	#include <sys/types.h>
+	#include <sys/stat.h>
+	#include <fcntl.h>
+	#include <string.h>
+	#include <sys/ioctl.h>
+	#include <unistd.h>
+	#include <net/if.h>
+	#include <linux/if_tun.h>
+	
+	int main(int argc, char **argv)
+	{
+		pid_t pid;
+		int status;
+		int tap_fd = open("/dev/net/tun", O_RDWR);
+		int vhost_fd = open("/dev/vhost-net", O_RDWR);
+		char *tap_name = "tap";
+		char cmd[2048];
+		char brctl[256];
+		char netup[256];
+		struct ifreq ifr;
+		if (tap_fd < 0) {
+			printf("open tun device failed\n");
+			return -1;
+		}
+		if (vhost_fd < 0) {
+			printf("open vhost-net device failed\n");
+			return -1;
+		}
+		memset(&ifr, 0, sizeof(ifr));
+		memcpy(ifr.ifr_name, tap_name, sizeof(tap_name));
+		ifr.ifr_flags = IFF_TAP | IFF_NO_PI;
+	
+		/*
+		 * setup tap net device
+		 */
+		if (ioctl(tap_fd, TUNSETIFF, &ifr) < 0) {
+			printf("setup tap net device failed\n");
+			return -1;
+		}
+	
+		sprintf(brctl, "brctl addif virbr0 %s", tap_name);
+		sprintf(netup, "ifconfig %s up", tap_name);
+		sprintf(cmd, "/work/git/qemu/x86_64-softmmu/qemu-system-x86_64 -name f17 -M pc-0.15 -enable-kvm -m 3096 \
+	-smp 4,sockets=4,cores=1,threads=1 \
+	-uuid c31a9f3e-4161-c53a-339c-5dc36d0497cb -no-user-config -nodefaults \
+	-chardev socket,id=charmonitor,path=/var/lib/libvirt/qemu/f17.monitor,server,nowait \
+	-mon chardev=charmonitor,id=monitor,mode=control \
+	-rtc base=utc -no-shutdown \
+	-device piix3-usb-uhci,id=usb,bus=pci.0,addr=0x1.0x2 \
+	-device virtio-scsi-pci,id=scsi0,bus=pci.0,addr=0xb,num_queues=4,hotplug=on \
+	-device virtio-serial-pci,id=virtio-serial0,bus=pci.0,addr=0x5 \
+	-drive file=/vm/f17.img,if=none,id=drive-virtio-disk0,format=qcow2 \
+	-device virtio-blk-pci,scsi=off,bus=pci.0,addr=0x6,drive=drive-virtio-disk0,id=virtio-disk0,bootindex=1 \
+	-drive file=/vm2/f17-kernel.img,if=none,id=drive-virtio-disk1,format=qcow2 \
+	-device virtio-blk-pci,scsi=off,bus=pci.0,addr=0x8,drive=drive-virtio-disk1,id=virtio-disk1 \
+	-drive file=/vm/virtio-scsi/scsi3.img,if=none,id=drive-scsi0-0-2-0,format=raw \
+	-device scsi-hd,bus=scsi0.0,channel=0,scsi-id=2,lun=0,drive=drive-scsi0-0-2-0,id=scsi0-0-2-0,removable=on \
+	-drive file=/vm/virtio-scsi/scsi4.img,if=none,id=drive-scsi0-0-3-0,format=raw \
+	-device scsi-hd,bus=scsi0.0,channel=0,scsi-id=3,lun=0,drive=drive-scsi0-0-3-0,id=scsi0-0-3-0 \
+	-drive file=/vm/virtio-scsi/scsi1.img,if=none,id=drive-scsi0-0-0-0,format=raw \
+	-device scsi-hd,bus=scsi0.0,channel=0,scsi-id=0,lun=0,drive=drive-scsi0-0-0-0,id=scsi0-0-0-0 \
+	-drive file=/vm/virtio-scsi/scsi2.img,if=none,id=drive-scsi0-0-1-0,format=raw \
+	-device scsi-hd,bus=scsi0.0,channel=0,scsi-id=1,lun=0,drive=drive-scsi0-0-1-0,id=scsi0-0-1-0 \
+	-chardev pty,id=charserial0 -device isa-serial,chardev=charserial0,id=serial0 \
+	-chardev file,id=charserial1,path=/vm/f17.log \
+	-device isa-serial,chardev=charserial1,id=serial1 \
+	-device usb-tablet,id=input0 -vga std \
+	-device virtio-balloon-pci,id=balloon0,bus=pci.0,addr=0x7 \
+	-netdev tap,fd=%d,id=hostnet0,vhost=on,vhostfd=%d \
+	-device virtio-net-pci,netdev=hostnet0,id=net0,mac=52:54:00:ce:7b:29,bus=pci.0,addr=0x3 \
+	-monitor stdio", tap_fd, vhost_fd);
+	
+		pid = fork();
+		if (pid < 0) {
+			return -1;
+		} else if (pid == 0) {
+			system(brctl);
+			system(netup);
+			system(cmd);
+			return 0;
+		}
+	
+		sleep(1);
+		wait(&status);
+		close(tap_fd);
+		close(vhost_fd);
+		return 0;
+	}
