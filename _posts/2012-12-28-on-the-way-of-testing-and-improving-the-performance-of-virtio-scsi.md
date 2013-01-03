@@ -25,6 +25,27 @@ Modify the libvirt in order to print the command line when starting a VM
 	 
 	     ret = virExecWithHook((const char *const *)cmd->args,
 
+#### Compile libvirt and QEMU ##
+I always install the upstream libvirt to my system
+
+	$ git diff
+	diff --git a/.gitmodules b/.gitmodules
+	index 7acb1ea..e67ffdb 100644
+	--- a/.gitmodules
+	+++ b/.gitmodules
+	@@ -1,3 +1,3 @@
+	 [submodule "gnulib"]
+	        path = .gnulib
+	-       url = git://git.sv.gnu.org/gnulib.git
+	+       url = git://10.167.225.115/git/gnulib
+	$ ./autogen.sh --prefix=/usr --libdir=/usr/lib64 && make && sudo make install
+
+But not install QEMU, just use the compiled binary to start QEMU
+
+	$ ./configure --target-list=x86_64-softmmu --enable-kvm
+	# /work/git/qemu/x86_64-softmmu/qemu-system-x86_64 ... ...
+
+
 #### Run libvirtd and start the GUEST by virsh. #
 We can get the QEMU command line from the message printed by libvirtd
 
