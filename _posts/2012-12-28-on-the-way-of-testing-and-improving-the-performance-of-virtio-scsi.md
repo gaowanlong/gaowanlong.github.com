@@ -178,6 +178,8 @@ Quoted from M.S.T:
 ### Use virtio-net in QEMU command line ##
 If we want to start QEMU by hand, we should set up the tap device by ourselves. The following simple program just set up the tap device and open the vhost-net device and start the QEMU. It's useful when debugging virtio devices in QEMU.
 
+#### This is the 4 tagets, 1 lun each target command line. ##
+
 	#include <stdio.h>
 	#include <sys/types.h>
 	#include <sys/stat.h>
@@ -267,3 +269,67 @@ If we want to start QEMU by hand, we should set up the tap device by ourselves. 
 		close(vhost_fd);
 		return 0;
 	}
+
+#### Then this is the 1 target, 4 luns each target command line. ##
+
+		sprintf(cmd, "/work/git/qemu/x86_64-softmmu/qemu-system-x86_64 -name f17 -M pc-0.15 -enable-kvm -m 3096 \
+	-smp 4,sockets=4,cores=1,threads=1 \
+	-uuid c31a9f3e-4161-c53a-339c-5dc36d0497cb -no-user-config -nodefaults \
+	-chardev socket,id=charmonitor,path=/var/lib/libvirt/qemu/f17.monitor,server,nowait \
+	-mon chardev=charmonitor,id=monitor,mode=control \
+	-rtc base=utc -no-shutdown \
+	-device piix3-usb-uhci,id=usb,bus=pci.0,addr=0x1.0x2 \
+	-device virtio-scsi-pci,id=scsi0,bus=pci.0,addr=0xb,num_queues=4,hotplug=on \
+	-device virtio-serial-pci,id=virtio-serial0,bus=pci.0,addr=0x5 \
+	-drive file=/vm/f17.img,if=none,id=drive-virtio-disk0,format=qcow2 \
+	-device virtio-blk-pci,scsi=off,bus=pci.0,addr=0x6,drive=drive-virtio-disk0,id=virtio-disk0,bootindex=1 \
+	-drive file=/vm2/f17-kernel.img,if=none,id=drive-virtio-disk1,format=qcow2 \
+	-device virtio-blk-pci,scsi=off,bus=pci.0,addr=0x8,drive=drive-virtio-disk1,id=virtio-disk1 \
+	-drive file=/vm/virtio-scsi/scsi3.img,if=none,id=drive-scsi0-0-2-0,format=raw \
+	-device scsi-hd,bus=scsi0.0,channel=0,scsi-id=0,lun=2,drive=drive-scsi0-0-2-0,id=scsi0-0-2-0,removable=on \
+	-drive file=/vm/virtio-scsi/scsi4.img,if=none,id=drive-scsi0-0-3-0,format=raw \
+	-device scsi-hd,bus=scsi0.0,channel=0,scsi-id=0,lun=3,drive=drive-scsi0-0-3-0,id=scsi0-0-3-0 \
+	-drive file=/vm/virtio-scsi/scsi1.img,if=none,id=drive-scsi0-0-0-0,format=raw \
+	-device scsi-hd,bus=scsi0.0,channel=0,scsi-id=0,lun=0,drive=drive-scsi0-0-0-0,id=scsi0-0-0-0 \
+	-drive file=/vm/virtio-scsi/scsi2.img,if=none,id=drive-scsi0-0-1-0,format=raw \
+	-device scsi-hd,bus=scsi0.0,channel=0,scsi-id=0,lun=1,drive=drive-scsi0-0-1-0,id=scsi0-0-1-0 \
+	-chardev pty,id=charserial0 -device isa-serial,chardev=charserial0,id=serial0 \
+	-chardev file,id=charserial1,path=/vm/f17.log \
+	-device isa-serial,chardev=charserial1,id=serial1 \
+	-device usb-tablet,id=input0 -vga std \
+	-device virtio-balloon-pci,id=balloon0,bus=pci.0,addr=0x7 \
+	-netdev tap,fd=%d,id=hostnet0,vhost=on,vhostfd=%d \
+	-device virtio-net-pci,netdev=hostnet0,id=net0,mac=52:54:00:ce:7b:29,bus=pci.0,addr=0x3 \
+	-monitor stdio", tap_fd, vhost_fd);
+
+#### While this is the virtio-blk command line, with 4 test virtio-blk, /dev/vd\[c-f\]. ##
+
+		sprintf(cmd, "/work/git/qemu/x86_64-softmmu/qemu-system-x86_64 -name f17 -M pc-0.15 -enable-kvm -m 3096 \
+	-smp 4,sockets=4,cores=1,threads=1 \
+	-uuid c31a9f3e-4161-c53a-339c-5dc36d0497cb -no-user-config -nodefaults \
+	-chardev socket,id=charmonitor,path=/var/lib/libvirt/qemu/f17.monitor,server,nowait \
+	-mon chardev=charmonitor,id=monitor,mode=control \
+	-rtc base=utc -no-shutdown \
+	-device piix3-usb-uhci,id=usb,bus=pci.0,addr=0x1.0x2 \
+	-device virtio-scsi-pci,id=scsi0,bus=pci.0,addr=0xb,num_queues=4,hotplug=on \
+	-device virtio-serial-pci,id=virtio-serial0,bus=pci.0,addr=0x5 \
+	-drive file=/vm/f17.img,if=none,id=drive-virtio-disk0,format=qcow2 \
+	-device virtio-blk-pci,scsi=off,bus=pci.0,addr=0x6,drive=drive-virtio-disk0,id=virtio-disk0,bootindex=1 \
+	-drive file=/vm2/f17-kernel.img,if=none,id=drive-virtio-disk1,format=qcow2 \
+	-device virtio-blk-pci,scsi=off,bus=pci.0,addr=0x8,drive=drive-virtio-disk1,id=virtio-disk1 \
+	-drive file=/vm/virtio-scsi/scsi3.img,if=none,id=drive-virtio-disk2,format=raw \
+	-device virtio-blk-pci,scsi=off,bus=pci.0,addr=0x9,drive=drive-virtio-disk2,id=virtio-disk2 \
+	-drive file=/vm/virtio-scsi/scsi4.img,if=none,id=drive-virtio-disk3,format=raw \
+	-device virtio-blk-pci,scsi=off,bus=pci.0,addr=0xa,drive=drive-virtio-disk3,id=virtio-disk3 \
+	-drive file=/vm/virtio-scsi/scsi1.img,if=none,id=drive-virtio-disk4,format=raw \
+	-device virtio-blk-pci,scsi=off,bus=pci.0,addr=0xc,drive=drive-virtio-disk4,id=virtio-disk4 \
+	-drive file=/vm/virtio-scsi/scsi2.img,if=none,id=drive-virtio-disk5,format=raw \
+	-device virtio-blk-pci,scsi=off,bus=pci.0,addr=0xd,drive=drive-virtio-disk5,id=virtio-disk5 \
+	-chardev pty,id=charserial0 -device isa-serial,chardev=charserial0,id=serial0 \
+	-chardev file,id=charserial1,path=/vm/f17.log \
+	-device isa-serial,chardev=charserial1,id=serial1 \
+	-device usb-tablet,id=input0 -vga std \
+	-device virtio-balloon-pci,id=balloon0,bus=pci.0,addr=0x7 \
+	-netdev tap,fd=%d,id=hostnet0,vhost=on,vhostfd=%d \
+	-device virtio-net-pci,netdev=hostnet0,id=net0,mac=52:54:00:ce:7b:29,bus=pci.0,addr=0x3 \
+	-monitor stdio", tap_fd, vhost_fd);
