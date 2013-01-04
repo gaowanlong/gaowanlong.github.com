@@ -333,3 +333,49 @@ If we want to start QEMU by hand, we should set up the tap device by ourselves. 
 	-netdev tap,fd=%d,id=hostnet0,vhost=on,vhostfd=%d \
 	-device virtio-net-pci,netdev=hostnet0,id=net0,mac=52:54:00:ce:7b:29,bus=pci.0,addr=0x3 \
 	-monitor stdio", tap_fd, vhost_fd);
+
+### Virtio-scsi Performance Data ##
+
+#### The virtio-scsi piecewise patches ##
+Paolo's piecewise patches improve performance 2%~4%,
+it's really small. [My git tree link.](https://github.com/gaowanlong/linux/commits/vscsi-piece "vscsi-piece branch")
+
+#### The virtio-scsi muti-queue patches ##
+Paolo's multi-queue patches improve performance much, almost above 50%.
+[My git tree link.](https://github.com/gaowanlong/linux/commits/vscsi-mq "vscsi-mq branch")
+
+#### The virtio-scsi piecewise-mq patches (combined above two) ##
+The patches combined piecewise and multi-queue was sent to community for review.
+[The email link](http://marc.info/?l=linux-virtualization&m=135583400026151&w=2),
+[My git tree link.](https://github.com/gaowanlong/linux/commits/vscsi-piece-mq "vscsi-piece-mq branch")
+
+#### The virtio chained patch ##
+Rusty sent out the virtio chained support patch, I rebased against virtio-next
+and use it in virtio-scsi, and tested it with 4 targets, virtio-scsi devices
+and host cpu idle=poll. Saw a little performance regression here.
+[The Email link.](http://marc.info/?l=linux-virtualization&m=135720346214277&w=2)
+
+	General:
+	Run status group 0 (all jobs):
+	   READ: io=34675MB, aggrb=248257KB/s, minb=248257KB/s, maxb=248257KB/s, mint=143025msec, maxt=143025msec
+	  WRITE: io=34625MB, aggrb=247902KB/s, minb=247902KB/s, maxb=247902KB/s, mint=143025msec, maxt=143025msec
+	
+	Chained:
+	Run status group 0 (all jobs):
+	   READ: io=34863MB, aggrb=242320KB/s, minb=242320KB/s, maxb=242320KB/s, mint=147325msec, maxt=147325msec
+	  WRITE: io=34437MB, aggrb=239357KB/s, minb=239357KB/s, maxb=239357KB/s, mint=147325msec, maxt=147325msec
+
+#### virtio-blk VS. virtio-scsi ##
+This data is tested on the upstream virtio-next(3.8.0-rc2).
+
+	4 targets, host idle=poll.
+	
+	virtio-blk:
+	Run status group 0 (all jobs):
+	   READ: io=35050MB, aggrb=404012KB/s, minb=404012KB/s, maxb=404012KB/s, mint=88838msec, maxt=88838msec
+	  WRITE: io=34250MB, aggrb=394780KB/s, minb=394780KB/s, maxb=394780KB/s, mint=88838msec, maxt=88838msec
+	
+	virtio-scsi:
+	Run status group 0 (all jobs):
+	   READ: io=34675MB, aggrb=248257KB/s, minb=248257KB/s, maxb=248257KB/s, mint=143025msec, maxt=143025msec
+	  WRITE: io=34625MB, aggrb=247902KB/s, minb=247902KB/s, maxb=247902KB/s, mint=143025msec, maxt=143025msec
