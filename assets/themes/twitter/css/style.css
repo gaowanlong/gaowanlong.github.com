@@ -68,4 +68,6 @@ body {
 	border:1px solid #4C964D;
 	color:#FFF;
 }
-	
+
+.column, .columns { float: left; min-height: 1px; padding: 0 15px; position: relative; }
+.three, .row .three { width: 25%; }
