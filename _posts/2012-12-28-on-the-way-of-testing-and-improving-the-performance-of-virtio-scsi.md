@@ -379,3 +379,14 @@ This data is tested on the upstream virtio-next(3.8.0-rc2).
 	Run status group 0 (all jobs):
 	   READ: io=34675MB, aggrb=248257KB/s, minb=248257KB/s, maxb=248257KB/s, mint=143025msec, maxt=143025msec
 	  WRITE: io=34625MB, aggrb=247902KB/s, minb=247902KB/s, maxb=247902KB/s, mint=143025msec, maxt=143025msec
+
+
+#### Work finished ##
+Now, the work has already finished by adding the support of multi-queue
+virtio-scsi. This patchset flight in the community for a long time,
+and went to 3.10-rc1 through the 3.10 merge window. It can almost improve
+the performance about 50%. Yes, this is a very good news for virtio-scsi,
+and everyone will see the change when 3.10 is released.
+The merged patch set is V7: [[PATCH V7 0/5] virtio-scsi multiqueue](http://thread.gmane.org/gmane.linux.kernel.virtualization/19131)
+
+Cheers!!!
