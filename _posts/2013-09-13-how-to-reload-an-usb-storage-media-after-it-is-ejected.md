@@ -155,3 +155,7 @@ It is clear now, we can make a new data:
 
 And send this new "cmdp" to the USB device using "SG_IO ioctl()", the USB storage
 media will be present to us again. Cheers!
+
+PS: there is already a command can do this for us, it is "sg_start":
+
+	# sg_start --load /dev/sdd
