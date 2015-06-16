@@ -47,4 +47,6 @@ BTW, I find some great articles which describe the memoization optimazation of R
 
 [4 Simple Memoization Patterns in Ruby (and One Gem)](http://www.justinweiss.com/blog/2014/07/28/4-simple-memoization-patterns-in-ruby-and-one-gem/)
 
+[ Ruby Programming/Syntax/Method Calls] (https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Method_Calls)
+
 ---
