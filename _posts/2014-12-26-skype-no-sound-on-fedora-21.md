@@ -10,7 +10,7 @@ tags: []
 
 Skype on Feodra 21 using lpf-skype install method,
 after install, there is no sound on x86_64 bit system.
-Because the i686 dependent libs is not installed yes.
+Because the i686 dependent libs is not installed yet.
 
 Check that if the below libs is installed on x86_64 system.
 
