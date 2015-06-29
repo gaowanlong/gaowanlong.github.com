@@ -402,3 +402,9 @@ and everyone will see the change when 3.10 is released.
 The merged patch set is V7: [[PATCH V7 0/5] virtio-scsi multiqueue](http://thread.gmane.org/gmane.linux.kernel.virtualization/19131)
 
 Cheers!!!
+
+---
+
+> Additionally, add a good slide of Asias at KVM FORUM 2012:
+>
+> [Virtio-blk performance improvement](http://www.linux-kvm.org/images/f/f9/2012-forum-virtio-blk-performance-improvement.pdf)
