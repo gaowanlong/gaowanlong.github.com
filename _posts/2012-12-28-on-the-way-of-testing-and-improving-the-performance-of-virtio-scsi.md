@@ -7,8 +7,10 @@ tags: [virtio, virtio-net, virtio-scsi, linux, kernel, qemu, libvirt]
 ---
 {% include JB/setup %}
 
-### My QEMU command line when testing virtio-scsi ##
-#### Get the qemu command line from libvirt XML ##
+### My QEMU command line when testing virtio-scsi
+
+####Get the qemu command line from libvirt XML
+
 Modify the libvirt in order to print the command line when starting a VM
 
 	diff --git a/src/util/command.c b/src/util/command.c
@@ -25,7 +27,13 @@ Modify the libvirt in order to print the command line when starting a VM
 	 
 	     ret = virExecWithHook((const char *const *)cmd->args,
 
-#### Compile libvirt and QEMU ##
+> It also possible to get the QEMU command line from ps command when running the
+> guest using libvirt. -2015-06-29
+
+	ps aux | grep qemu
+
+
+#### Compile libvirt and QEMU
 I always install the upstream libvirt to my system
 
 	$ git diff
@@ -137,8 +145,9 @@ The above mentioned scsiX.img are all tmpfs backed images
 	qemu> device_add scsi-hd,bus=scsi0.0,scsi-id=4,lun=0,drive=hotadd-scsi1,id=hotadd-scsi1
 	qemu> device_del hotadd-scsi1
 
-### Virtio-scsi performance testing ##
-#### Use the upstream fio ##
+### Virtio-scsi performance testing
+
+#### Use the upstream fio
 
 	git clone http://git.kernel.org/pub/scm/linux/kernel/git/axboe/fio.git
 
@@ -166,6 +175,7 @@ The above mentioned scsiX.img are all tmpfs backed images
 
 The method is adding idle=poll parameter to host kernel.
 Quoted from M.S.T:
+
 >"Another thing to note is that ATM you might need to
 >test with idle=poll on host otherwise we have strange interaction
 >with power management where reducing the overhead
@@ -176,7 +186,9 @@ Quoted from M.S.T:
 	# fio virtio-scsi-4.fio --output=scsi-4.log
 
 ### Use virtio-net in QEMU command line ##
-If we want to start QEMU by hand, we should set up the tap device by ourselves. The following simple program just set up the tap device and open the vhost-net device and start the QEMU. It's useful when debugging virtio devices in QEMU.
+If we want to start QEMU by hand, we should set up the tap device by ourselves.
+The following simple program just set up the tap device and open the vhost-net
+device and start the QEMU. It's useful when debugging virtio devices in QEMU.
 
 #### This is the 4 tagets, 1 lun each target command line. ##
 
