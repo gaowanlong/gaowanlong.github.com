@@ -25,7 +25,7 @@ sed -i -e 's/\(title : \)Jekyll Bootstrap/\1A Linux Developer/' \
        -e 's/\(  email : \)blah@email.test/\1wanlong.gao@gmail.com/' \
        -e 's/\(  github : \)username/\1gaowanlong/' \
        -e 's/  twitter : username/  weibo : lengyuex/' \
-       -e 's|\(production_url : \)http://username.github.io|\1http://blog.gitcat.com|' \
+       -e 's|\(production_url : \)http://username.github.io|\1http://blog.allenx.org|' \
        _config.yml
 
 # add the unstaged files
