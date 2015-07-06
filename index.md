@@ -4,8 +4,23 @@ title: Home
 ---
 {% include JB/setup %}
 
-<ul class="posts">
-  {% for post in site.posts %}
-    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
-  {% endfor %}
-</ul>
+	 _____________________
+	< Welcome to my blog! >
+	 ---------------------
+	   \
+	    \
+		.--.
+	       |o_o |
+	       |:_/ |
+	      //   \ \
+	     (|     | )
+	    /'\_   _/`\
+	    \___)=(___/ .......output from cowsay
+
+{% for post in site.posts offset: 0 limit: 10 %}
+<h2>
+<a href="{{ site.prefix }}{{ post.url }}">{{ post.title }}</a>
+</h2>
+{{ post.date | date_to_string }}
+{{ post.content }}
+{% endfor %}
