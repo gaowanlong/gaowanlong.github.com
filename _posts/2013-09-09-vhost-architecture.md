@@ -37,7 +37,9 @@ the guest physical memory mapping to the vhost-net driver.
 
 During initialization the vhost driver creates a kernel thread called vhost-$pid,
 where $pid is the QEMU process pid. This thread is called the "vhost worker thread".
-The job of the worker thread is to handle I/O events and perform the device emulation.
+The job of the worker thread is to **handle I/O events and perform the device emulation.**
+
+>vhost初始化时创建vhost-$pid内核线程来处理I/O事件和模拟设备。
 
 ###In-kernel virtio emulation
 
@@ -46,6 +48,9 @@ virtqueue operations only. QEMU is still used to perform virtio feature negotiat
 and live migration, for example. This means a vhost driver is not a self-contained virtio
 device implementation, it depends on userspace to handle the control plane while the data
 plane is done in-kernel.
+
+> Vhost 实际上并不是完整的virtio PCI适配器，它仍要依赖qemu来模拟virtio设备，只是把
+> 数据处理的部分放到kernel里面来做。
 
 The vhost worker thread waits for virtqueue kicks and then handles buffers that have been
 placed on the virtqueue. In vhost-net this means taking packets from the tx virtqueue and
@@ -71,6 +76,9 @@ to a particular guest I/O exit. QEMU userspace registers an ioeventfd for the
 VIRTIO_PCI_QUEUE_NOTIFY hardware register access which kicks the virtqueue. This is how the
 vhost worker thread gets notified by the KVM kernel module when the guest kicks the virtqueue.
 
+> vhost和KVM模块是相互独立的，vhost会创建eventfd并且watch它的状态。同时QEMU将ioeventfd注册成
+> guest的queue notify硬件寄存器。因此当guest kick virtqueue的时候，vhost内核线程就会收到信号。
+
 On the return trip from the vhost worker thread to interrupting the guest a similar approach
 is used. Vhost takes a "call" file descriptor which it will write to in order to kick the guest.
 The KVM kernel module has a feature called irqfd which allows an eventfd to trigger guest interrupts.
@@ -79,6 +87,11 @@ instance. This is how the vhost worker thread can interrupt the guest.
 
 In the end the vhost instance only knows about the guest memory mapping, a kick eventfd,
 and a call eventfd.
+
+> 因为vhost共享得到了需要传输的vring队列的memory mapping, 所以省去了队列从guest到Host userspace
+> 再到Host Kernel的多次跨态拷贝，所以加快了速度。
+
+> 基本思想是将vring的数据处理推迟到Host Kernel中进行，使得处理前的vring保持可共享状态.
 
 ###Where to find out more
 Here are the main points to begin exploring the code:
