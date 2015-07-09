@@ -9,7 +9,7 @@ group: navigation
 
 Lazily fetched the resume to write this page: (in vim)
 
-	:r !wget -O - https://raw.githubusercontent.com/gaowanlong/resume/master/resume.md 2>/dev/null
+	:r !wget -O - https://github.com/gaowanlong/resume/raw/master/resume.md 2>/dev/null
 
 The PDF version can be found by [Click Here](https://github.com/gaowanlong/resume/raw/master/resume.pdf).
 
