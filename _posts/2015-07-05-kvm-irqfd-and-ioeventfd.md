@@ -33,3 +33,50 @@ Go into the patch, we can see details:
 
 Hook the irq inject wakeup function to a wait queue, and the wait queue will
 be added by the eventfd polling callback.
+
+####ioeventfd#
+
+While ioeventfd is a mechanism to register PIO/MMIO regions to trigger an eventfd
+signal when written to by a guest. The purpose of this mechanism is to make
+guest notify host in a lightweight way. This is lightweight because it will not
+cause a VMX/SVM exit back to userspace, serviced by qemu then returning control
+back to the vcpu.  Why we need this mechanism because this kind of *heavy-weight*
+IO sync mechanism is not necessary for the triggers, these triggers only want
+to transmit a notify asynchronously and return as quickly as possible. It is
+expansive for them to use the normal IO.
+
+Look into the implementation, it accepts the eventfd and io address from args,
+then register a kvm_io_device with them. And the write operation of the registered
+kvm_io_device is sending an eventfd signal. The signal function is eventfd_siganl().
+
+So, this mechanism is:
+
+> ioeventfd: Allow an fd to be used to receive an signal from the guest
+
+####conclusion#
+
+A very simple conclusion of these two mechanism can be the following picture:
+
+	+-----------------------------------------+
+	|                                  Host   |
+	|   +--------------------------+          |
+	|   |                QEMU      |          |
+	|   |                          |          |
+	|   |      +---------------+   |          |
+	|   |      |      Guest    |   |          |
+	|   |      |               |   |          |
+	|   |      |   +-------- ioeventfd------> |
+	|   |      |               |   |          |
+	|   |      |               |   |          |
+	|   |      |               |   |          |
+	|   |      |   <-----------irqfd--------+ |
+	|   |      |               |   |          |
+	|   |      +---------------+   |          |
+	|   |                          |          |
+	|   |                          |          |
+	|   +--------------------------+          |
+	|                                         |
+	+-----------------------------------------+
+
+After knowing what irqfd and ioeventfd are and how they are implemented, the next
+section may be how to use them, for example in vhost? ;)
