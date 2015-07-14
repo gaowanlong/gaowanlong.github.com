@@ -36,13 +36,17 @@ The implementation is:
 
 The vhost client is in QEMU and the backend is *Snabbswitch*.
 
-The usage in QEMU is like following:
+Example usage:
 
-	$ qemu -m 1024 -mem-path /hugetlbfs,prealloc=on,share=on \
-	-netdev type=vhost-user,id=net0,file=/path/to/socket \
-	-device virtio-net-pci,netdev=net0
+	qemu -m 512 \
+	     -object memory-file,id=mem,size=512M,mem-path=/hugetlbfs,share=on \
+	     -numa node,memdev=mem \
+	     -chardev socket,id=chr0,path=/path/to/socket \
+	     -netdev type=vhost-user,id=net0,chardev=chr0 \
+	     -device virtio-net-pci,netdev=net0
 
 ---
 
+The vhost-user support patch series: <http://lists.gnu.org/archive/html/qemu-devel/2014-05/msg05443.html>  
 An article at Virtual Open Systems: [Vhost-User Feature for QEMU](http://www.virtualopensystems.com/en/solutions/guides/snabbswitch-qemu/)  
 Another article compare vhost with vhost-user: <http://www.51gocloud.com/?p=402>
