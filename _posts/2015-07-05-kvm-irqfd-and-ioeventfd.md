@@ -7,7 +7,7 @@ tags: [kvm]
 ---
 {% include JB/setup %}
 
-In previous article [vhost architecture](http://blog.allenx.org/linux/2013/09/09/vhost-architecture/)
+In previous article [vhost architecture](http://blog.allenx.org/2013/09/09/vhost-architecture/)
 we mentioned that vhost and the guest signal each other by irqfd and ioeventfd mechanism.
 
 So let us see how irqfd and ioeventfd mechanism can take this role. We can find
