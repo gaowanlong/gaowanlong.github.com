@@ -51,7 +51,7 @@ kvm_io_device is sending an eventfd signal. The signal function is eventfd_sigan
 
 So, this mechanism is:
 
-> ioeventfd: Allow an fd to be used to receive an signal from the guest
+> ioeventfd: Allow an fd to be used to receive a signal from the guest
 
 ####conclusion#
 
