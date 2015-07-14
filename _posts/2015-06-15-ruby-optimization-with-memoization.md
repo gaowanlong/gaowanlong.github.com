@@ -2,8 +2,8 @@
 layout: post
 title: "Ruby optimization with memoization"
 description: ""
-category: 
-tags: []
+category: linux
+tags: [ruby]
 ---
 {% include JB/setup %}
 

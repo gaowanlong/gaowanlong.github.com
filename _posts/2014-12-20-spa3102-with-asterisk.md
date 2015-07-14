@@ -2,8 +2,8 @@
 layout: post
 title: "SPA3102 with asterisk"
 description: ""
-category: 
-tags: []
+category: linux
+tags: [asterisk]
 ---
 {% include JB/setup %}
 

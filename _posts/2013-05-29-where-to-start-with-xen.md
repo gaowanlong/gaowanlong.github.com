@@ -2,8 +2,8 @@
 layout: post
 title: "Where to start with Xen?"
 description: ""
-category: Linux
-tags: [xen, virtual]
+category: virtualization
+tags: [xen]
 ---
 {% include JB/setup %}
 

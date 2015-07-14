@@ -2,8 +2,8 @@
 layout: post
 title: "On the way of testing and improving the performance of virtio-scsi"
 description: ""
-category: Linux
-tags: [virtio, virtio-net, virtio-scsi, linux, kernel, qemu, libvirt]
+category: virtualization
+tags: [virtio, kvm]
 ---
 {% include JB/setup %}
 

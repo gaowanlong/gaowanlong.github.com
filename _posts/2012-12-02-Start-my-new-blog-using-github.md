@@ -2,8 +2,8 @@
 layout: post
 title: "Start my new blog using github"
 description: ""
-category: myself
-tags: [personal]
+category: others
+tags: []
 ---
 {% include JB/setup %}
 

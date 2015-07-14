@@ -2,8 +2,8 @@
 layout: post
 title: "How to reload an USB storage media after it is ejected"
 description: ""
-category: Linux
-tags: [USB, Linux, eject]
+category: linux
+tags: [usb]
 ---
 {% include JB/setup %}
 

@@ -2,8 +2,8 @@
 layout: post
 title: "QEMU migration analysis"
 description: "QEMU migration"
-category: 
-tags: [qemu, migration]
+category: virtualization
+tags: [qemu]
 ---
 {% include JB/setup %}
 

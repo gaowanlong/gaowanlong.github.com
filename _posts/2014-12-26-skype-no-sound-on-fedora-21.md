@@ -2,8 +2,8 @@
 layout: post
 title: "skype no sound on Fedora 21 x86_64"
 description: ""
-category: 
-tags: []
+category: linux
+tags: [skype]
 ---
 {% include JB/setup %}
 

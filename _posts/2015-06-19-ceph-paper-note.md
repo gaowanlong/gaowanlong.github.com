@@ -2,7 +2,7 @@
 layout: post
 title: "Ceph paper note"
 description: ""
-category:
+category: linux
 tags: [ceph]
 ---
 {% include JB/setup %}

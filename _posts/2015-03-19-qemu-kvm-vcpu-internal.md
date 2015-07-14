@@ -2,8 +2,8 @@
 layout: post
 title: "QEMU KVM VCPU internal"
 description: ""
-category: 
-tags: []
+category: virtualization
+tags: [kvm, qemu]
 ---
 {% include JB/setup %}
 

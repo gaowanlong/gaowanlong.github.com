@@ -2,8 +2,8 @@
 layout: post
 title: "vhost architecture"
 description: ""
-category: linux
-tags: [vhost, qemu]
+category: virtualization
+tags: [vhost, qemu, kvm]
 ---
 {% include JB/setup %}
 

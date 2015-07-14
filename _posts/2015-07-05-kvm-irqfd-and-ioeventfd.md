@@ -2,8 +2,8 @@
 layout: post
 title: "KVM irqfd and ioeventfd"
 description: ""
-category: kvm
-tags: [ioeventfd, irqfd, kvm]
+category: virtualization
+tags: [kvm]
 ---
 {% include JB/setup %}
 

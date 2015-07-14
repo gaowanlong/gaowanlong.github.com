@@ -2,8 +2,8 @@
 layout: post
 title: "Using proxy for git pull and push"
 description: ""
-category: Linux
-tags: [git, proxy]
+category: linux
+tags: [git]
 ---
 {% include JB/setup %}
 

@@ -2,7 +2,7 @@
 layout: post
 title: "Use shell script to manage virtual machine"
 description: ""
-category: 
+category: virtualization
 tags: [kvm, qemu]
 ---
 {% include JB/setup %}

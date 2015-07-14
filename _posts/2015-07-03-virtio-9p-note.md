@@ -2,7 +2,7 @@
 layout: post
 title: "virtio 9p note"
 description: "virtio 9p filesystem notes"
-category: linux
+category: virtualization
 tags: [9p, virtio, kvm]
 ---
 {% include JB/setup %}
