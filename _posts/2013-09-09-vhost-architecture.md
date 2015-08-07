@@ -125,8 +125,8 @@ The following two pictures describe the normal virtio-net architecture and the
 in kernel vhost-net architecture, we can get a clear sense of them from these two
 pictures.
 
-![virtio-net](https://app.yinxiang.com/shard/s61/res/c7f7a13d-afc7-4c77-9ae7-3360cbe346a8)
-![vhost-net](https://app.yinxiang.com/shard/s61/res/6f71a910-896b-4e4c-905b-94509245089f)
+![virtio-net](http://7xky0k.com1.z0.glb.clouddn.com/virtio-net.jpg)
+![vhost-net](http://7xky0k.com1.z0.glb.clouddn.com/vhost-net.jpg)
 
 
 ---
