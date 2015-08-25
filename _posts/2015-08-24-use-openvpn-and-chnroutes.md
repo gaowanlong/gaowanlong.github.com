@@ -27,8 +27,8 @@ Download the route script from <http://chnroutes-dl.appspot.com>
 
 Add the script to my openvpn configuration file:
 
-	chmod +x ip-pre-up ip-down
-	cat >>vps.ovpn <<EOF
+	$ chmod +x ip-pre-up ip-down
+	$ cat >>vps.ovpn <<EOF
 	script-security 2
 	up ./ip-pre-up
 	down ./ip-down
@@ -36,7 +36,7 @@ Add the script to my openvpn configuration file:
 
 Add new DNS to resolv.conf
 
-	cat >/etc/resolv.conf <<EOF
+	$ cat >/etc/resolv.conf <<EOF
 	nameserver 8.8.8.8
 	nameserver 8.8.4.4
 	nameserver 208.67.222.222
@@ -44,4 +44,26 @@ Add new DNS to resolv.conf
 
 And start openvpn:
 
-	nohup openvpn vps.ovpn &
+	$ nohup openvpn vps.ovpn &
+
+
+Instead of downloading the generated scripts, we can also clone the source and
+generate by ourselves.
+
+	$ git clone https://github.com/jimmyxu/chnroutes.git
+	$ cd chnroutes
+	$ ./chnroutes.py -p linux
+
+
+---
+
+While For macos, can follow the similar steps, but the generated files are ip-up
+and ip-down, I write the configuration like following:
+
+	$ cat >>vps.ovpn <<EOF
+	route-up ip-up
+	route-pre-down ip-down
+	EOF
+
+The route-up and route-pre-down option is following the manual of Tunnelblick
+<https://tunnelblick.net/cUsingScripts.html>
