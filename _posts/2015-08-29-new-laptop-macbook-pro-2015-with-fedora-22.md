@@ -108,6 +108,8 @@ Do some configuration after install finished.
 * Then my vim editor, I always use the Vundle <https://github.com/gmarik/Vundle.vim.git>
   to manage my plugins, it is powerful and easy to use.
 
+---
+
 * Modify the PS1 with colors. Side note about the colors: The colors are preceded
   by an escape sequence \e and defined by a color value, composed of [style;color+m]
   and wrapped in an escaped [] sequence. eg.
@@ -123,7 +125,7 @@ Do some configuration after install finished.
 		bold red (style 1) = \[\e[1;3m\]
 		clear coloring = \[\e[0m\]
 
-* switch the ruby gem source, since the official one is too slow:
+* switch the ruby gem source before install jekyll, since the official one is too slow:
 
 		$ gem sources --remove https://rubygems.org/
 		$ gem sources --remove http://rubygems.org/
