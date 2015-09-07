@@ -107,3 +107,29 @@ Do some configuration after install finished.
 
 * Then my vim editor, I always use the Vundle <https://github.com/gmarik/Vundle.vim.git>
   to manage my plugins, it is powerful and easy to use.
+
+* Modify the PS1 with colors. Side note about the colors: The colors are preceded
+  by an escape sequence \e and defined by a color value, composed of [style;color+m]
+  and wrapped in an escaped [] sequence. eg.
+
+		$ cat >~/.bash_profile <<EOF
+		export PS1='\[\e[0;31m\]\u\[\e[0m\]@\[\e[0;32m\]mac\[\e[0m\]: \[\e[0;35m\]\w\[\e[0m\] \$ '
+		alias ls='ls -G'
+		alias ll='ls -l'
+		alias grep='grep --color'
+		EOF
+
+		red= \[\e[0;31m\]
+		bold red (style 1) = \[\e[1;3m\]
+		clear coloring = \[\e[0m\]
+
+* switch the ruby gem source, since the official one is too slow:
+
+		$ gem sources --remove https://rubygems.org/
+		$ gem sources --remove http://rubygems.org/
+		$ gem sources -a http://ruby.taobao.org/
+		$ gem sources -l
+		*** CURRENT SOURCES ***
+
+		http://ruby.taobao.org
+
