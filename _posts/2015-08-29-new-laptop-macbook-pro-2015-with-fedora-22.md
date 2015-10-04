@@ -88,6 +88,21 @@ Do some configuration after install finished.
   Enabled event. After this, tap to touchpad should already be recognized to
   click event.
 
+  Then the following script can do the above things:
+
+		#!/bin/bash
+
+		id=$(xinput list | grep bcm5974 | awk '{print $4}'| cut -d= -f2)
+		echo $id
+		prop=$(xinput list-props $id | grep "Tapping Enabled (")
+		echo $prop
+		prop=${prop##*(}
+		echo $prop
+		prop=${prop%%)*}
+		echo $prop
+		xinput set-prop $id $prop 1
+
+
 * My hand is familiar with the HHKB keyboard layout, so the normal keyboard
   layout is not suitable for me, I should swap some keys, use *gnome-tweak-tool*
   to swap some function key is very convenient and I use it to set the *CapsLock*
