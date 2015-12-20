@@ -140,6 +140,14 @@ Do some configuration after install finished.
 		bold red (style 1) = \[\e[1;3m\]
 		clear coloring = \[\e[0m\]
 
+		My favor PS1:
+
+		/root/.bashrc:
+		export PS1='\[\e[1;31m\]\u\[\e[0m\]@\[\e[1;31m\]ROOT\[\e[0m\]: \[\e[0;35m\]\w\[\e[0m\] \$ '
+
+		/home/$USER/.bashrc:
+		export PS1='\[\e[1;31m\]\u\[\e[0m\]@\[\e[1;32m\]home\[\e[0m\]: \[\e[1;35m\]\w\[\e[0m\] \$ '
+
 * switch the ruby gem source before install jekyll, since the official one is too slow:
 
 		$ gem sources --remove https://rubygems.org/
