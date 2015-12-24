@@ -9,14 +9,20 @@ highlighter: pygments
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : A Linux Developer
-tagline: Site Tagline
-author :
-  name : Wanlong Gao
-  email : wanlong.gao@gmail.com
-  github : gaowanlong
-  weibo : lengyuex
-  feedburner : feedname
+title : 五十亩东坡地
+email: wanlong.gao@gmail.com
+description: > # this means to ignore newlines until "baseurl:"
+  若言琴上有琴声，
+  放在匣中何不鸣？
+  若言声在指头上，
+  何不于君指上听？
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://blog.allenx.org" # the base hostname & protocol for your site
+twitter_username: lengyuex
+github_username: gaowanlong
+
+# Build settings
+markdown: kramdown
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt 

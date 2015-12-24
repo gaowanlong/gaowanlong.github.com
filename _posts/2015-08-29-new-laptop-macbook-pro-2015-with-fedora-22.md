@@ -26,8 +26,10 @@ Do some configuration after install finished.
   touchpad is a bit new and the driver was just merged to the upstream kernel
   from v4.2-rc2:
 
+  {% highlight c %}
 		$ git describe  dbe08116b87cdc2217f11a78b5b70e29068b7efd
 		v4.2-rc4-107-gdbe0811
+ {% endhighlight %}
 
   As you can see, the official Fedora 22 kernel can not support the bcm5974
   input device. So I compiled the latest release v4.2-rc8 and the Touchpad and
