@@ -4,18 +4,20 @@ title: Home
 ---
 {% include JB/setup %}
 
-	 _____________________
-	< Welcome to my blog! >
-	 ---------------------
-	   \
-	    \
-		.--.
-	       |o_o |
-	       |:_/ |
-	      //   \ \
-	     (|     | )
-	    /'\_   _/`\
-	    \___)=(___/ .......output from cowsay
+```
+ _____________________
+< Welcome to my blog! >
+ ---------------------
+   \
+    \
+        .--.
+       |o_o |
+       |:_/ |
+      //   \ \
+     (|     | )
+    /'\_   _/`\
+    \___)=(___/ .......output from cowsay
+```
 
 {% for post in site.posts offset: 0 limit: 10 %}
 <h2>
