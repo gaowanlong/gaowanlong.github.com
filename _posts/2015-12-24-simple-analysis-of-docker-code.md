@@ -32,7 +32,7 @@ Docker是一个Client/Server架构的用于管理container的工具, 但是它�
 用gerrit，而docker使用的go语言从一开始就深度依赖github, 这一点从打开每一个source
 文件一开头的import()就能看出来，类似于：
 
-{%highlight ruby linenos %}
+```go
 import (
 	"errors"
 	"fmt"
@@ -52,7 +52,7 @@ import (
 	"github.com/docker/docker/api/types/filters"
     ...
     )
-{%endhighlight %}
+```
 
 Docker有详细的关于参与社区的文档:
 https://docs.docker.com/opensource/code/
@@ -74,12 +74,12 @@ docker的编译很简单，从Makefile里面可以看出它是用预先写好的
 
 Note:下面提到的代码细节方面的，都是基本docker version:
 
-
+```shell
 	$ git describe 
 	v1.4.1-8669-ge9f7241
 	$ cat VERSION 
 	1.10.0-dev
-
+```
 
 Docker Daemon
 ===

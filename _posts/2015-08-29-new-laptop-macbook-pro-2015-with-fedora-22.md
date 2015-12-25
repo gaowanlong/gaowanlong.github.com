@@ -26,10 +26,10 @@ Do some configuration after install finished.
   touchpad is a bit new and the driver was just merged to the upstream kernel
   from v4.2-rc2:
 
-  {% highlight c %}
-		$ git describe  dbe08116b87cdc2217f11a78b5b70e29068b7efd
-		v4.2-rc4-107-gdbe0811
- {% endhighlight %}
+```shell
+$ git describe  dbe08116b87cdc2217f11a78b5b70e29068b7efd
+v4.2-rc4-107-gdbe0811
+```
 
   As you can see, the official Fedora 22 kernel can not support the bcm5974
   input device. So I compiled the latest release v4.2-rc8 and the Touchpad and
@@ -44,6 +44,7 @@ Do some configuration after install finished.
   And the right method to enable the Tap-to-click function and use the *xinput*
   tool:
 
+```shell
 		[root@fedora ~]# xinput list
 		⎡ Virtual core pointer                    	id=2	[master pointer  (3)]
 		⎜   ↳ Virtual core XTEST pointer              	id=4	[slave  pointer  (2)]
@@ -85,6 +86,7 @@ Do some configuration after install finished.
 			Device Node (257):	"/dev/input/event8"
 			Device Product ID (258):	1452, 627
 		[root@fedora ~]# xinput set-prop 13 282 1
+```
 
   The number *13* and *282* in above command is the id of device and libinput Tapping
   Enabled event. After this, tap to touchpad should already be recognized to
@@ -92,6 +94,7 @@ Do some configuration after install finished.
 
   Then the following script can do the above things:
 
+```shell
 		#!/bin/bash
 
 		id=$(xinput list | grep bcm5974 | awk '{print $4}'| cut -d= -f2)
@@ -103,6 +106,7 @@ Do some configuration after install finished.
 		prop=${prop%%)*}
 		echo $prop
 		xinput set-prop $id $prop 1
+```
 
 
 * My hand is familiar with the HHKB keyboard layout, so the normal keyboard
@@ -111,6 +115,7 @@ Do some configuration after install finished.
   act as *Contrl* and swap the *Option* and *Command* key. The use *xmodmap*
   tool to swap other not function keys like:
 
+```shell
 		# back up the original map
 		$ xmodmap -pke > key_orig
 		# following keycode can be found from the tool *xev | grep key*
@@ -121,6 +126,7 @@ Do some configuration after install finished.
 		keycode 22 = backslash bar backslash bar
 		EOF
 		$ xmodmap key_change
+```
 
 * Then my vim editor, I always use the Vundle <https://github.com/gmarik/Vundle.vim.git>
   to manage my plugins, it is powerful and easy to use.
@@ -131,6 +137,7 @@ Do some configuration after install finished.
   by an escape sequence \e and defined by a color value, composed of [style;color+m]
   and wrapped in an escaped [] sequence. eg.
 
+```shell
 		$ cat >~/.bash_profile <<EOF
 		export PS1='\[\e[0;31m\]\u\[\e[0m\]@\[\e[0;32m\]mac\[\e[0m\]: \[\e[0;35m\]\w\[\e[0m\] \$ '
 		alias ls='ls -G'
@@ -149,9 +156,11 @@ Do some configuration after install finished.
 
 		/home/$USER/.bashrc:
 		export PS1='\[\e[1;31m\]\u\[\e[0m\]@\[\e[1;32m\]home\[\e[0m\]: \[\e[1;35m\]\w\[\e[0m\] \$ '
+```
 
 * switch the ruby gem source before install jekyll, since the official one is too slow:
 
+```shell
 		$ gem sources --remove https://rubygems.org/
 		$ gem sources --remove http://rubygems.org/
 		$ gem sources -a http://ruby.taobao.org/
@@ -159,4 +168,5 @@ Do some configuration after install finished.
 		*** CURRENT SOURCES ***
 
 		http://ruby.taobao.org
+```
 
