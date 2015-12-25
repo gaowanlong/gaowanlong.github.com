@@ -26,7 +26,7 @@ Do some configuration after install finished.
   touchpad is a bit new and the driver was just merged to the upstream kernel
   from v4.2-rc2:
 
-```shell
+```
 $ git describe  dbe08116b87cdc2217f11a78b5b70e29068b7efd
 v4.2-rc4-107-gdbe0811
 ```
@@ -44,7 +44,7 @@ v4.2-rc4-107-gdbe0811
   And the right method to enable the Tap-to-click function and use the *xinput*
   tool:
 
-```shell
+```
 		[root@fedora ~]# xinput list
 		⎡ Virtual core pointer                    	id=2	[master pointer  (3)]
 		⎜   ↳ Virtual core XTEST pointer              	id=4	[slave  pointer  (2)]
@@ -94,7 +94,7 @@ v4.2-rc4-107-gdbe0811
 
   Then the following script can do the above things:
 
-```shell
+```
 		#!/bin/bash
 
 		id=$(xinput list | grep bcm5974 | awk '{print $4}'| cut -d= -f2)
@@ -115,7 +115,7 @@ v4.2-rc4-107-gdbe0811
   act as *Contrl* and swap the *Option* and *Command* key. The use *xmodmap*
   tool to swap other not function keys like:
 
-```shell
+```
 		# back up the original map
 		$ xmodmap -pke > key_orig
 		# following keycode can be found from the tool *xev | grep key*
@@ -137,7 +137,7 @@ v4.2-rc4-107-gdbe0811
   by an escape sequence \e and defined by a color value, composed of [style;color+m]
   and wrapped in an escaped [] sequence. eg.
 
-```shell
+```
 		$ cat >~/.bash_profile <<EOF
 		export PS1='\[\e[0;31m\]\u\[\e[0m\]@\[\e[0;32m\]mac\[\e[0m\]: \[\e[0;35m\]\w\[\e[0m\] \$ '
 		alias ls='ls -G'
@@ -160,7 +160,7 @@ v4.2-rc4-107-gdbe0811
 
 * switch the ruby gem source before install jekyll, since the official one is too slow:
 
-```shell
+```
 		$ gem sources --remove https://rubygems.org/
 		$ gem sources --remove http://rubygems.org/
 		$ gem sources -a http://ruby.taobao.org/

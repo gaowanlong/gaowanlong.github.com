@@ -74,7 +74,7 @@ docker的编译很简单，从Makefile里面可以看出它是用预先写好的
 
 Note:下面提到的代码细节方面的，都是基本docker version:
 
-```shell
+```bash
 	$ git describe 
 	v1.4.1-8669-ge9f7241
 	$ cat VERSION 
