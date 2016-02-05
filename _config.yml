@@ -23,19 +23,12 @@ url: "http://blog.allenx.org" # the base hostname & protocol for your site
 filter: 'tag'
 
 # Build settings
-highlighter: pygments
-markdown: redcarpet  # [ maruku | rdiscount | kramdown | redcarpet ]
+highlighter: rouge
+markdown: kramdown # [ maruku | rdiscount | kramdown | redcarpet ]
 markdown_ext:  markdown,mkd,mkdn,md
 textile_ext:   textile
-redcarpet:
-  extensions:
-    - fenced_code_blocks
-    - no_intra_emphasis
-    - strikethrough
-    - no_intra_emphasis
-    - autolink
-    - tables
-    - with_toc_data
+kramdown:
+  input: GFM
 
 sass:
   style: compressed
