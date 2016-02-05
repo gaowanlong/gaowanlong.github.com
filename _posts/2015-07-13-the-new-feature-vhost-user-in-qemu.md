@@ -6,7 +6,7 @@ category: virtualization
 tags: [kvm, qemu, virtio]
 ---
 
-####virtio-net#
+#### virtio-net
 The QEMU/KVM guest can access external network via virtio-net. QEMU emulated a
 PCI device via virtio_pci, servers as the transport mechanism that implements
 the Virtio ring. Virtio drivers lies on top of it to set up virtqueues, that
@@ -15,12 +15,12 @@ is a network implementation on virtio. Guest running virtio-net will share a
 number of virtqueues with QEMU process.  So, QEMU should process the network
 traffic before it can be processed further by the network stack of host.
 
-####vhost-net#
+#### vhost-net#
 Then the vhost can **accelerate** the above process by **directly pass guest
 network traffic to TUN device directly from the kernel side**. In this model,
 QEMU will pass direct control of a virtqueue to a kernel driver.
 
-####vhost-user#
+#### vhost-user#
 While vhost-user want to event skip the kernel part and process the network
 traffic in userspace directly. **It is a implementation of a user space vhost
 interface.**
@@ -47,7 +47,7 @@ Example usage:
 	     -netdev type=vhost-user,id=net0,chardev=chr0 \
 	     -device virtio-net-pci,netdev=net0
 
-####VhostUser App (apps.vhost.vhost_user)#
+#### VhostUser App (apps.vhost.vhost_user)#
 The SnabbSwitch architecture can be described to **Snabb Switch Core** with
 **custom Apps and Libraries**. The *Core* is the basic Snabb Switch stack and provides
 a runtime environment(engine). While the *Apps* are *Lua script* used to drive
@@ -62,7 +62,7 @@ the Apps in SnabbSwitch. VhostUser app supports the virtio vring date structure
 for packet I/O in shared memory(DMA) and the Linux vhost API for creating vrings
 attached to tuntap devices.
 
-####What is TUN/TAP device#
+#### What is TUN/TAP device#
 TUN/TAP provides packet reception and transmission for user space programs. It can
 be seen as a simple Point-to-Point or Ethernet device, which, instead of receiving
 packets from physical media, receives them from user space program and instead of

@@ -17,7 +17,7 @@ KVM ioeventfd support patch: <http://git.kernel.org/linus/d34e6b175e61821026893e
 
 ---
 
-####irqfd#
+#### irqfd#
 
 irqfd is a mechanism to inject a specific interrupt to a guest using a decoupled
 eventfd mechanism: Any legal signal on the irqfd (using eventfd semantics from
@@ -33,7 +33,7 @@ Go into the patch, we can see details:
 Hook the irq inject wakeup function to a wait queue, and the wait queue will
 be added by the eventfd polling callback.
 
-####ioeventfd#
+#### ioeventfd#
 
 While ioeventfd is a mechanism to register PIO/MMIO regions to trigger an eventfd
 signal when written to by a guest. The purpose of this mechanism is to make
@@ -52,7 +52,7 @@ So, this mechanism is:
 
 > ioeventfd: Allow an fd to be used to receive a signal from the guest
 
-####conclusion#
+#### conclusion#
 
 A very simple conclusion of these two mechanism can be the following picture:
 

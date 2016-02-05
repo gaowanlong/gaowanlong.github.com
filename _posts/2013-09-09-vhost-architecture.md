@@ -7,7 +7,7 @@ tags: [vhost, qemu, kvm]
 ---
 
 
-###Vhost overview
+### Vhost overview
 
 The vhost drivers in Linux provide in-kernel virtio device emulation.
 Normally the QEMU userspace process emulates I/O accesses from the guest.
@@ -24,7 +24,7 @@ devices is in drivers/vhost/vhost.c. This includes the virtio vring access funct
 which all virtio devices need in order to communicate with the guest. The vhost-net
 code lives in drivers/vhost/net.c.
 
-###The vhost driver model
+### The vhost driver model
 
 The vhost-net driver creates a /dev/vhost-net character device on the host.
 This character device serves as the interface for configuring the vhost-net instance.
@@ -40,7 +40,7 @@ The job of the worker thread is to **handle I/O events and perform the device em
 
 >vhost初始化时创建vhost-$pid内核线程来处理I/O事件和模拟设备。
 
-###In-kernel virtio emulation
+### In-kernel virtio emulation
 
 Vhost does not emulate a complete virtio PCI adapter. Instead it restricts itself to
 virtqueue operations only. QEMU is still used to perform virtio feature negotiation
@@ -59,7 +59,7 @@ File descriptor polling is also done by the vhost worker thread. In vhost-net th
 thread wakes up when packets come in over the tap file descriptor and it places them into
 the rx virtqueue so the guest can receive them.
 
-###Vhost as a userspace interface
+### Vhost as a userspace interface
 
 One surprising aspect of the vhost architecture is that it is not tied to KVM in any way.
 Vhost is a userspace interface and has no dependency on the KVM kernel module. This means
@@ -92,7 +92,7 @@ and a call eventfd.
 
 > 基本思想是将vring的数据处理推迟到Host Kernel中进行，使得处理前的vring保持可共享状态.
 
-###Where to find out more
+### Where to find out more
 Here are the main points to begin exploring the code:
 
     drivers/vhost/vhost.c - common vhost driver code
@@ -110,7 +110,7 @@ This nice article is copied from Stefan's Blog:
 
 ---
 
-####virtio-net and vhost-net architecture#
+#### virtio-net and vhost-net architecture#
 
 
 Vhost-net improvement is:

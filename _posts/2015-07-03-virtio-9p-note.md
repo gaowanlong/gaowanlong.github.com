@@ -62,7 +62,7 @@ is the mount point where you want to mount the exported file system.
 
 ---
 
-###Can 9p used as root file system?
+### Can 9p used as root file system?
 
 For example, we can add 9p modules to the host initramfs and boot up a guest
 use host kernel and host initramfs in which 9p module is added:
@@ -87,7 +87,7 @@ This answer refer to: <http://unix.stackexchange.com/a/94253>
 
 The above mentioned security model is explained below:
 
-####Security model: mapped
+#### Security model: mapped
 
 VirtFS server(QEMU) intercepts and maps all the file object create requests.
 Files on the fileserver will be created with QEMU's user credentials and the
@@ -113,7 +113,7 @@ Points to be considered
   Need for special reporting utilities which can understand this security model.
 
 
-####Security model : passthrough
+#### Security model : passthrough
 
 In this security model, VirtFS server passes down all requests to the
 underlying filesystem. File system objects on the fileserver will be created

@@ -18,7 +18,7 @@ of the disk platter are fast. (For HDD)
 
 ---
 
-####Three contributions to solve the block layer bottleneck:
+#### Three contributions to solve the block layer bottleneck:
 
 - The current request queue lock is a single coarse lock, it is the main
 bottleneck. Single lock design is especially painful on parallel CPUs,
@@ -37,7 +37,7 @@ of cache and pipeline flushes compared to a single level design.
 
 ---
 
-####Three main problems within current block layer:
+#### Three main problems within current block layer:
 
 - **Request Queue Locking**: The block layer fundamentally synchronizes shared
 accesses to an exclusive resource: the IO request queue. (i) Whenever a
@@ -63,7 +63,7 @@ a NUMA architecture).
 
 ---
 
-####Block multi-queu architecture:
+#### Block multi-queu architecture:
 
 Distribute the lock contention on the single request queue lock to
 multiple queues through the use of two levels of queues:
@@ -89,7 +89,7 @@ buffer over run.
 
 ---
 
-####Device driver extensions to archieve optimal performance:
+#### Device driver extensions to archieve optimal performance:
 
 - **HW dispatch queue registration**: The device driver must export the number
 of submission queues that it supports as well as the size of these queues,

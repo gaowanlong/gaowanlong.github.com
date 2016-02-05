@@ -6,13 +6,13 @@ category: Linux
 tags: [ceph]
 ---
 
-###Three main components:
+### Three main components:
 
 - clients, expose near-POSIX file system interface to host or process
 - cluster of OSDs, store data and metadata
 - metadata server cluster, manage the namespace
 
-###Ceph address the scalability issue through three features:
+### Ceph address the scalability issue through three features:
 
 - Decoupled data and Metadata
 
