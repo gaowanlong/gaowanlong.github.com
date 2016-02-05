@@ -5,7 +5,6 @@ description: ""
 category: virtualization
 tags: [virtio, kvm]
 ---
-{% include JB/setup %}
 
 ### My QEMU command line when testing virtio-scsi
 

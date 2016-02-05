@@ -5,7 +5,6 @@ description: ""
 category: 
 tags: []
 ---
-{% include JB/setup %}
 
 
 Shadowsocks is not available tonight, it is really a bad news, I should switch

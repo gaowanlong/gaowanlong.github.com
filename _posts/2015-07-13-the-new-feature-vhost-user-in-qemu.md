@@ -5,7 +5,6 @@ description: "Vhost-user applied to snabbswitch ethernet switch"
 category: virtualization
 tags: [kvm, qemu, virtio]
 ---
-{% include JB/setup %}
 
 ####virtio-net#
 The QEMU/KVM guest can access external network via virtio-net. QEMU emulated a

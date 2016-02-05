@@ -2,10 +2,9 @@
 layout: post
 title: "Ruby optimization with memoization"
 description: ""
-category: linux
+category: Linux
 tags: [ruby]
 ---
-{% include JB/setup %}
 
 In this patch: [stats.rb: make cache for is_failure and is_latency](https://github.com/gaowanlong/lkp-tests/commit/2e910237d933bfbaa14ad64ac6b005151f70354a),
 as the comment said:

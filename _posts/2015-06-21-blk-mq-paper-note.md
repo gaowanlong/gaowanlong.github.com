@@ -2,10 +2,9 @@
 layout: post
 title: "blk-mq paper note"
 description: ""
-category: linux
+category: Linux
 tags: [block]
 ---
-{% include JB/setup %}
 
 ---
 

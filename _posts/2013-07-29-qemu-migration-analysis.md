@@ -5,7 +5,6 @@ description: "QEMU migration"
 category: virtualization
 tags: [qemu]
 ---
-{% include JB/setup %}
 
 ## MEMO#
 

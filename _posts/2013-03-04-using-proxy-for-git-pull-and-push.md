@@ -2,10 +2,9 @@
 layout: post
 title: "Using proxy for git pull and push"
 description: ""
-category: linux
+category: Linux
 tags: [git]
 ---
-{% include JB/setup %}
 
 ### Use git proxy on git protocol ##
 git protocol is read only for git, so we can just clone/pull

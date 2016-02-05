@@ -5,7 +5,6 @@ description: ""
 category: virtualization
 tags: [kvm, qemu]
 ---
-{% include JB/setup %}
 
 VCPU is neither a OS thread nor a process. To understand how VCPU works,
 first we should figure out how guest OS is running on Intel VT-x architecture.

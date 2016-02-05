@@ -2,10 +2,9 @@
 layout: post
 title: "SPA3102 with asterisk"
 description: ""
-category: linux
+category: Linux
 tags: [asterisk]
 ---
-{% include JB/setup %}
 
 
 After asterisk 12, we use pjsip instead of sip.

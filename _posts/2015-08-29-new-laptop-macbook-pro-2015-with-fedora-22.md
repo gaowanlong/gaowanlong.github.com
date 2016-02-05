@@ -5,7 +5,6 @@ description: ""
 category: Linux
 tags: []
 ---
-{% include JB/setup %}
 
 I got a Macbook Pro 2015 recently, and it seems necessary to install a Linux
 since I should do kernel work on it. Otherwise, I can use the default macos

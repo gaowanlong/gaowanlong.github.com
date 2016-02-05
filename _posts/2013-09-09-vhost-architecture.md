@@ -5,7 +5,6 @@ description: ""
 category: virtualization
 tags: [vhost, qemu, kvm]
 ---
-{% include JB/setup %}
 
 
 ###Vhost overview

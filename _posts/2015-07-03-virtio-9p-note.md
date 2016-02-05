@@ -5,7 +5,6 @@ description: "virtio 9p filesystem notes"
 category: virtualization
 tags: [9p, virtio, kvm]
 ---
-{% include JB/setup %}
 
 KVM introduces a new and more optimized tool called VirtFS (sometimes referred
 to as a file system pass-through). VirtFS uses a paravirtual file system driver,

@@ -1,8 +1,9 @@
 ---
-layout: page
-title: Home
+layout: post
+title: 五十亩东坡地
 ---
-{% include JB/setup %}
+
+高万龙的博客
 
 ```
  _____________________
@@ -18,11 +19,4 @@ title: Home
     /'\_   _/`\
     \___)=(___/ .......output from cowsay
 ```
-
-{% for post in site.posts offset: 0 limit: 10 %}
-<h2>
-<a href="{{ site.prefix }}{{ post.url }}">{{ post.title }}</a>
-</h2>
-{{ post.date | date_to_string }}
-{{ post.content }}
-{% endfor %}
+About me: <https://github.com/gaowanlong/resume/blob/master/resume.md>

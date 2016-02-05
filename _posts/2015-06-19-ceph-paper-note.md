@@ -2,10 +2,9 @@
 layout: post
 title: "Ceph paper note"
 description: ""
-category: linux
+category: Linux
 tags: [ceph]
 ---
-{% include JB/setup %}
 
 ###Three main components:
 

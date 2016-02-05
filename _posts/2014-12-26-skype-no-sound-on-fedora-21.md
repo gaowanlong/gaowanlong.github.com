@@ -2,10 +2,9 @@
 layout: post
 title: "skype no sound on Fedora 21 x86_64"
 description: ""
-category: linux
+category: Linux
 tags: [skype]
 ---
-{% include JB/setup %}
 
 
 Skype on Feodra 21 using lpf-skype install method,

@@ -5,7 +5,6 @@ description: ""
 category: virtualization
 tags: [xen]
 ---
-{% include JB/setup %}
 
 While this is a newbie question about Xen.
 I just found a very good answer for this question on Stack Overflow,

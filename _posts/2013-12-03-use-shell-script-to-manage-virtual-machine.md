@@ -5,7 +5,6 @@ description: ""
 category: virtualization
 tags: [kvm, qemu]
 ---
-{% include JB/setup %}
 
 Refer to: http://www.linux-kvm.org/page/Simple_shell_script_to_manage_your_virtual_machine_with_bridged_networking
 

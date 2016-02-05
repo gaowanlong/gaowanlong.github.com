@@ -2,10 +2,9 @@
 layout: post
 title: "How to reload an USB storage media after it is ejected"
 description: ""
-category: linux
+category: Linux
 tags: [usb]
 ---
-{% include JB/setup %}
 
 When an USB storage media is plugged in, the system will detect
 it automatically, and automount it in some modern Linux releases.
