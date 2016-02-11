@@ -13,4 +13,6 @@ Because the i686 dependent libs is not installed yet.
 
 Check that if the below libs is installed on x86_64 system.
 
-	yum install libv4l.i686 pulseaudio-libs.i686 alsa-plugins-pulseaudio.i686
+```shell
+yum install libv4l.i686 pulseaudio-libs.i686 alsa-plugins-pulseaudio.i686
+```

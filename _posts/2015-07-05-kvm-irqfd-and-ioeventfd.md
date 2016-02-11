@@ -2,7 +2,7 @@
 layout: post
 title: "KVM irqfd and ioeventfd"
 description: ""
-category: virtualization
+category: Virtualization
 tags: [kvm]
 ---
 
@@ -56,26 +56,28 @@ So, this mechanism is:
 
 A very simple conclusion of these two mechanism can be the following picture:
 
-	+-----------------------------------------+
-	|                                  Host   |
-	|   +--------------------------+          |
-	|   |                QEMU      |          |
-	|   |                          |          |
-	|   |      +---------------+   |          |
-	|   |      |      Guest    |   |          |
-	|   |      |               |   |          |
-	|   |      |   +-------- ioeventfd------> |
-	|   |      |               |   |          |
-	|   |      |               |   |          |
-	|   |      |               |   |          |
-	|   |      |   <-----------irqfd--------+ |
-	|   |      |               |   |          |
-	|   |      +---------------+   |          |
-	|   |                          |          |
-	|   |                          |          |
-	|   +--------------------------+          |
-	|                                         |
-	+-----------------------------------------+
+```
++-----------------------------------------+
+|                                  Host   |
+|   +--------------------------+          |
+|   |                QEMU      |          |
+|   |                          |          |
+|   |      +---------------+   |          |
+|   |      |      Guest    |   |          |
+|   |      |               |   |          |
+|   |      |   +-------- ioeventfd------> |
+|   |      |               |   |          |
+|   |      |               |   |          |
+|   |      |               |   |          |
+|   |      |   <-----------irqfd--------+ |
+|   |      |               |   |          |
+|   |      +---------------+   |          |
+|   |                          |          |
+|   |                          |          |
+|   +--------------------------+          |
+|                                         |
++-----------------------------------------+
+```
 
 After knowing what irqfd and ioeventfd are and how they are implemented, the next
 section may be how to use them, for example in vhost? ;)

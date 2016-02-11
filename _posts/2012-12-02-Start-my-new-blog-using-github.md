@@ -2,7 +2,7 @@
 layout: post
 title: "Start my new blog using github"
 description: ""
-category: others
+category:
 tags: []
 ---
 

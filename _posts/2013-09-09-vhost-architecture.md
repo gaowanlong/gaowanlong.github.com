@@ -2,7 +2,7 @@
 layout: post
 title: "vhost architecture"
 description: ""
-category: virtualization
+category: Virtualization
 tags: [vhost, qemu, kvm]
 ---
 
@@ -95,14 +95,18 @@ and a call eventfd.
 ### Where to find out more
 Here are the main points to begin exploring the code:
 
-    drivers/vhost/vhost.c - common vhost driver code
-    drivers/vhost/net.c - vhost-net driver
-    virt/kvm/eventfd.c - ioeventfd and irqfd
+```
+drivers/vhost/vhost.c - common vhost driver code
+drivers/vhost/net.c - vhost-net driver
+virt/kvm/eventfd.c - ioeventfd and irqfd
+```
 
 The QEMU userspace code shows how to initialize the vhost instance:
 
-    hw/vhost.c - common vhost initialization code
-    hw/vhost_net.c - vhost-net initialization
+```
+hw/vhost.c - common vhost initialization code
+hw/vhost_net.c - vhost-net initialization
+```
 
 
 This nice article is copied from Stefan's Blog:

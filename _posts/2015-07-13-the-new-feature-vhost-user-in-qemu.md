@@ -2,7 +2,7 @@
 layout: post
 title: "The new feature vhost-user in QEMU"
 description: "Vhost-user applied to snabbswitch ethernet switch"
-category: virtualization
+category: Virtualization
 tags: [kvm, qemu, virtio]
 ---
 
@@ -40,12 +40,14 @@ The vhost client is in QEMU and the backend is *Snabbswitch*.
 
 Example usage:
 
-	qemu -m 512 \
-	     -object memory-file,id=mem,size=512M,mem-path=/hugetlbfs,share=on \
-	     -numa node,memdev=mem \
-	     -chardev socket,id=chr0,path=/path/to/socket \
-	     -netdev type=vhost-user,id=net0,chardev=chr0 \
-	     -device virtio-net-pci,netdev=net0
+```shell
+qemu -m 512 \
+     -object memory-file,id=mem,size=512M,mem-path=/hugetlbfs,share=on \
+     -numa node,memdev=mem \
+     -chardev socket,id=chr0,path=/path/to/socket \
+     -netdev type=vhost-user,id=net0,chardev=chr0 \
+     -device virtio-net-pci,netdev=net0
+```
 
 #### VhostUser App (apps.vhost.vhost_user)#
 The SnabbSwitch architecture can be described to **Snabb Switch Core** with

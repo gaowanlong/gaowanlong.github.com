@@ -2,7 +2,7 @@
 layout: post
 title: "virtio 9p note"
 description: "virtio 9p filesystem notes"
-category: virtualization
+category: Virtualization
 tags: [9p, virtio, kvm]
 ---
 
@@ -34,8 +34,10 @@ devices:
 
 Exporting Host's Filesystem with VirtFS
 
-	qemu-kvm [...] -fsdev local,id=exp1,path=/tmp/,security_model=mapped
-	-device virtio-9p-pci,fsdev=exp1,mount_tag=v_tmp
+```shell
+qemu-kvm [...] -fsdev local,id=exp1,path=/tmp/,security_model=mapped
+-device virtio-9p-pci,fsdev=exp1,mount_tag=v_tmp
+```
 
 In above:
 
@@ -55,7 +57,9 @@ In above:
 
 Such an exported file system can be mounted on the guest like this
 
-	mount -t 9p -o trans=virtio v_tmp /mnt
+```shell
+mount -t 9p -o trans=virtio v_tmp /mnt
+```
 
 where v_tmp is the mount tag defined earlier with -device mount_tag= and /mnt
 is the mount point where you want to mount the exported file system.
@@ -67,15 +71,17 @@ is the mount point where you want to mount the exported file system.
 For example, we can add 9p modules to the host initramfs and boot up a guest
 use host kernel and host initramfs in which 9p module is added:
 
-	printf '%s\n' 9p 9pnet 9pnet_virtio | sudo tee -a /etc/initramfs-tools/modules
-	sudo update-initramfs -u
+```shell
+printf '%s\n' 9p 9pnet 9pnet_virtio | sudo tee -a /etc/initramfs-tools/modules
+sudo update-initramfs -u
 
-	qemu -kernel "/boot/vmlinuz-$(uname -r)" \
-	  -initrd "/boot/initrd.img-$(uname -r)" \
-	  -fsdev local,id=r,path=/,security_model=none \
-	  -device virtio-9p-pci,fsdev=r,mount_tag=r \
-	  -nographic \
-	  -append 'root=r ro rootfstype=9p rootflags=trans=virtio console=ttyS0 init=/bin/sh'
+qemu -kernel "/boot/vmlinuz-$(uname -r)" \
+  -initrd "/boot/initrd.img-$(uname -r)" \
+  -fsdev local,id=r,path=/,security_model=none \
+  -device virtio-9p-pci,fsdev=r,mount_tag=r \
+  -nographic \
+  -append 'root=r ro rootfstype=9p rootflags=trans=virtio console=ttyS0 init=/bin/sh'
+```
 
 Additionally use "security_model=mapped" to be able to fully access the underlying
 filesystem since it stores owership and other privileged file information in extended
@@ -101,8 +107,7 @@ appropriate mode bits are stored in xattrs and will be extracted during
 getattr.
 
 If the extended attributes are missing, server sends back the filesystem
-stat() unaltered. This provision will make the files created on the
-fileserver usable to client.
+stat() unaltered. This provision will make the files created on the fileserver usable to client.
 
 Points to be considered
 
@@ -132,8 +137,10 @@ It also adds security model attribute to -fsdev device and to -virtfs shortcut.
 
 Usage examples:
 
-	-fsdev local,id=jvrao,path=/tmp/,security_model=mapped
-	-virtfs local,path=/tmp/,security_model=passthrough,mnt_tag=v_tmp.
+```shell
+-fsdev local,id=jvrao,path=/tmp/,security_model=mapped
+-virtfs local,path=/tmp/,security_model=passthrough,mnt_tag=v_tmp.
+```
 
 ---
 9p doc in kernel: <https://www.kernel.org/doc/Documentation/filesystems/9p.txt>
