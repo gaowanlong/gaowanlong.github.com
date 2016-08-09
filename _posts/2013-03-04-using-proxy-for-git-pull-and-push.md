@@ -29,3 +29,27 @@ exec socat STDIO PROXY:$PROXY:$1:$2,proxyport=$PROXYPORT
 ```
 
 The socat tool used in above command line can be found here:[http://www.dest-unreach.org/socat/]( http://www.dest-unreach.org/socat/)
+
+
+### proxy for git send-email
+
+proxy is useful for us, especially for git send-email by gmail. The msmtp can
+set proxy in the *.msmtprc* config file like:
+
+```
+# gmail
+account gmail
+host smtp.gmail.com
+port 587
+proxy_host 127.0.0.1
+proxy_port 1080
+from wanlong.gao@gmail.com
+auth on
+user wanlong.gao@gmail.com
+password xxx
+```
+Then we can use *git send-email* with *msmtp* server:
+
+```
+git send-email --smtp-server /usr/bin/msmtp xxx.patch
+```
